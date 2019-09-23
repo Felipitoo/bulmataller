@@ -68,7 +68,11 @@ if (document.querySelector(".empanada-container") != null){
     var c = url.searchParams.get("id");
     axios.get("https://api.openweathermap.org/data/2.5/weather?id="+ c +"&appid=37c466e1678618dd2536e562caab06b7").then((res) => {
         console.log(res)
-        datos.innerText+=JSON.stringify(res)
+
+        //datos.innerText+=JSON.stringify(res)
+        datos.innerText += res["data"]["name"]
+        datos.innerText += res["data"]["weather"][0]["description"]
+        datos.innerText += "http://openweathermap.org/img/wn/" + res["data"]["weather"][0]["icon"] + "@2x.png"
 
     }).catch((error) => {
         console.log(error)
