@@ -7,7 +7,7 @@ const listar = (conjunto) => {
     var incluir = ""
     for(var i = 0; i < conjunto.length; i++) {
         var obj = conjunto[i];
-        incluir += "  <li><a>"+obj.name+"</a></li>"
+        incluir += "<li><a>"+obj.name+"</a></li>"
     
     }
     return incluir
@@ -20,14 +20,13 @@ const key = "country";
 const value= "CL";
 const result = json.filter(d=>d[key]==value);
 
-console.log(listar(result))
 if (module.hot) {
     module.hot.accept()
 }
 
 const locations = document.querySelector("#myUL")
 
-
+locations.innerHTML+= listar(result)
 
 //locations.innerHTML()
 
