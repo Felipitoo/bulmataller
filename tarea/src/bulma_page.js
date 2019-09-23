@@ -2,52 +2,36 @@ import "./styles.css"
 import axios from "axios"
 console.log("ESTE ES EL JS DEL ARCHIVO BULMA!!!")
 
-const  myFunction = () => {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName('li');
-    console.log(li)
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-  }
 
-document.querySelector("#myInput").addEventListener('keyup', (event) => {
-    /* Code here... */
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName('li');
-    console.log(li)
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
-    })
+if (document.querySelector("#myInput") != null){
+    document.querySelector("#myInput").addEventListener('keyup', (event) => {
+        /* Code here... */
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName('li');
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+        }
+        })
 
+}
 
 const listar = (conjunto) => {
     var incluir = ""
     for(var i = 0; i < conjunto.length; i++) {
         var obj = conjunto[i];
-        incluir += "<li><a>"+obj.name+"</a></li>"
+        //incluir += "<li class ='pais'  ><a href = https://api.openweathermap.org/data/2.5/weather?id="+obj.id+"&appid=37c466e1678618dd2536e562caab06b7>"+obj.name+"</a></li>"
+        incluir += "<li class ='pais' ><a href = index.html?id="+obj.id +" >"+obj.name+"</a></li>"
+        
     
     }
     return incluir
@@ -63,16 +47,11 @@ const result = json.filter(d=>d[key]==value);
 if (module.hot) {
     module.hot.accept()
 }
+if (document.querySelector("#myUL") != null ){
+    const locations = document.querySelector("#myUL")
+    locations.innerHTML+= listar(result)
 
-const locations = document.querySelector("#myUL")
-
-locations.innerHTML+= listar(result)
-
-//locations.innerHTML()
-
-
-
-
+}
 
 
 axios.get("https://api.openweathermap.org/data/2.5/weather?q=London&appid=37c466e1678618dd2536e562caab06b7").then((res) => {
@@ -82,45 +61,19 @@ axios.get("https://api.openweathermap.org/data/2.5/weather?q=London&appid=37c466
 })
 
 
-/*
-const calculate_mean = (array) => {
-    let count = 0
-    array.forEach((element) => {
-        count += element
+if (document.querySelector(".empanada-container") != null){
+    const datos = document.querySelector(".empanada-container")
+    var url_string = window.location.href; //window.location.href
+    var url = new URL(url_string);
+    var c = url.searchParams.get("id");
+    axios.get("https://api.openweathermap.org/data/2.5/weather?id="+ c +"&appid=37c466e1678618dd2536e562caab06b7").then((res) => {
+        console.log(res)
+        datos.innerText+=JSON.stringify(res)
+
+    }).catch((error) => {
+        console.log(error)
     })
 
-    return count / array.length
 }
 
-document.querySelector("#mean_container button").addEventListener('click', (event) => {
-    let input = document.querySelector("#mean_container input").value
-    input = input.split(" ").map((x) => { return parseInt(x) })
-    let mean = calculate_mean(input)
-    let answer_container = document.querySelector("#mean_container .answer")
-    answer_container.innerText = mean
-})
 
-const dog_formatter = (x) => {
-    return `
-    <div class="is-narrow" style="max-width: 300px">
-        <div class="dog-box">
-        <img src="${x}" style="width: 100%"> 
-        </div>
-    </div>
-    `
-}
-
-axios.get("https://dog.ceo/api/breeds/image/random/10").then((res) => {
-    let container = document.querySelector("#dogcontainer")
-    console.log(res)
-    res.data.message.forEach((x) => {
-        container.innerHTML += dog_formatter(x)
-    })
-}).catch((error) => {
-    console.log(error)
-})
-
-if (module.hot) {
-    module.hot.accept()
-}
-*/
