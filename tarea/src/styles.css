@@ -1,0 +1,10 @@
+/* Con un poco de css se puede hacer el recuadro mucho más lindo :D */
+.empanada-container{
+    width: 200px;
+    padding: 10px;
+    margin: 10px 5px;
+    border-radius: 5px; /* Suaviza los bordes del rectangulo */
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(220,220,220);
+}
