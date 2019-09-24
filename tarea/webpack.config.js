@@ -45,6 +45,12 @@ module.exports = {
       template: './src/example_with_bulma.html',
       chunks: ['bulma'] // Se pone esto para que incluya el app.js y app.css
     }),
+    new HtmlWebpackPlugin({
+      filename: 'weather.html',
+      template: './src/weather.html',
+      chunks: ['bulma'] // Se pone esto para que incluya el app.js y app.css
+    })
+    ,
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional

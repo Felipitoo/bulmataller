@@ -61,19 +61,29 @@ axios.get("https://api.openweathermap.org/data/2.5/weather?q=London&appid=37c466
 })
 
 
-if (document.querySelector(".empanada-container") != null){
-    const datos = document.querySelector(".empanada-container")
+if (document.querySelector("#infoClima") != null){
+    var datos = document.querySelector("#infoClima")
     var url_string = window.location.href; //window.location.href
     var url = new URL(url_string);
     var c = url.searchParams.get("id");
-    axios.get("https://api.openweathermap.org/data/2.5/weather?id="+ c +"&appid=37c466e1678618dd2536e562caab06b7").then((res) => {
+    axios.get("https://api.openweathermap.org/data/2.5/weather?id="+ c +"&lang=es&units=metric&appid=37c466e1678618dd2536e562caab06b7").then((res) => {
         console.log(res)
 
         //datos.innerText+=JSON.stringify(res)
-        datos.innerText += res["data"]["name"]
-        datos.innerText += res["data"]["weather"][0]["description"]
-        datos.innerText += "http://openweathermap.org/img/wn/" + res["data"]["weather"][0]["icon"] + "@2x.png"
-
+        
+        datos.innerHTML += "<h3> Locación : " + String(res["data"]["name"]) + "</h3>"
+        datos.innerHTML +=  "<h2> Pronostico : "+ String(res["data"]["weather"][0]["description"]) + "</h2>"
+        var n = String(res["data"]["weather"][0]["icon"]).includes("n")
+        if (n){
+            datos.innerHTML += "<h2>Noche<h2>"
+        }
+        else{
+            datos.innerHTML += "<h2>Dia<h2>"
+        }
+        datos.innerHTML += "<img src='http://openweathermap.org/img/wn/" + String(res["data"]["weather"][0]["icon"]) + "@2x.png'style=width: 100% />"
+        datos.innerHTML += "<h3> Temperatura actual : " + String(res["data"]["main"]["temp"]) + "°C </h3>"
+        
+        console.log(datos)
     }).catch((error) => {
         console.log(error)
     })
